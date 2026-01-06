@@ -17,7 +17,7 @@ public class Wordle {
 
     public static void main(String[] args) throws IOException {
 
-        try(GameLog logger = new GameLog("wordle.log") ) {
+        try (GameLog logger = new GameLog("wordle.log")) {
 
             WordleDictionaryLoader loader = new WordleDictionaryLoader();
             logger.log("Начинаем загрузку словаря");
@@ -73,7 +73,7 @@ public class Wordle {
 
             logger.log("Игрок проиграл. Ответ: " + game.getAnswer());
 
-    } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

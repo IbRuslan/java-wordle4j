@@ -18,12 +18,12 @@ public class WordleDictionaryLoader {
     public WordleDictionary load(Path path) throws IOException {
         List<String> words = new ArrayList<>();
 
-        try(BufferedReader br = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+        try (BufferedReader br = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             String line;
             while ((line = br.readLine()) != null) {
                 String word = WordleDictionary.normalize(line.trim());
 
-                if(WordleDictionary.isValidGameWord(word)) {
+                if (WordleDictionary.isValidGameWord(word)) {
                     words.add(word);
                 }
             }

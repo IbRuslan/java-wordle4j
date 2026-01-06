@@ -80,7 +80,7 @@ public class WordleGame {
     public String getHint() throws GameException {
         List<String> candidates = new ArrayList<>();
 
-        for (String word: dictionary.getWords()) {
+        for (String word : dictionary.getWords()) {
             boolean found = true;
 
             for (int i = 0; i < guesses.size(); i++) {
