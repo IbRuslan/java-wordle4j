@@ -1,6 +1,7 @@
 package ru.yandex.practicum;
 
 import java.util.List;
+import java.util.Random;
 
 /*
 этот класс содержит в себе список слов List<String>
@@ -10,5 +11,92 @@ import java.util.List;
 public class WordleDictionary {
 
     private List<String> words;
+
+    public WordleDictionary(List<String> words) {
+        this.words = words;
+    }
+
+    public List<String> getWords() {
+        return words;
+    }
+
+    public String getRandomWord() {
+        Random rand = new Random();
+        return words.get(rand.nextInt(words.size()));
+    }
+
+    public static String normalize(String word) {
+        return word.trim().toLowerCase().replace("ё", "е");
+    }
+
+    public static boolean isValidGameWord(String word) {
+        if (word.length() != 5) return false;
+
+        for (int i = 0; i < word.length(); i++) {
+            if (!Character.isLetter(word.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String compare(String answer, String guess) {
+        char[] result = new char[5];
+        boolean[] used = new boolean[5];
+
+
+        for (int i = 0; i < 5; i++) {
+            if (guess.charAt(i) == answer.charAt(i)) {
+                result[i] = '+';
+                used[i] = true;
+            }
+        }
+
+
+        for (int i = 0; i < 5; i++) {
+            if (result[i] == '+') continue;
+
+            char c = guess.charAt(i);
+            boolean found = false;
+
+            for (int j = 0; j < 5; j++) {
+                if (!used[j] && answer.charAt(j) == c) {
+                    used[j] = true;
+                    found = true;
+                    break;
+                }
+            }
+            result[i] = found ? '^' : '-';
+        }
+
+        return new String(result);
+    }
+
+    public static boolean matches(String candidate, String guess, String result) {
+
+        for (int i = 0; i < 5; i++) {
+            char g = guess.charAt(i);
+            char r = result.charAt(i);
+
+            if (r == '+') {
+                if (candidate.charAt(i) != g) {
+                    return false;
+                }
+            }
+
+            if (r == '^') {
+                if (candidate.charAt(i) == g || candidate.indexOf(g) == -1) {
+                    return false;
+                }
+            }
+
+            if (r == '-') {
+                if (candidate.indexOf(g) != -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
