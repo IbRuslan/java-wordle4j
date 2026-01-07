@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package exceptions;
 
 public class InvalidWordFormatException extends GameException {
 

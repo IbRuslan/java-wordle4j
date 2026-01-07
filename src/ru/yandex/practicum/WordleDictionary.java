@@ -10,6 +10,8 @@ import java.util.Random;
  */
 public class WordleDictionary {
 
+    public static final int WORD_LENGTH = 5;
+
     private List<String> words;
 
     public WordleDictionary(List<String> words) {
@@ -30,7 +32,7 @@ public class WordleDictionary {
     }
 
     public static boolean isValidGameWord(String word) {
-        if (word.length() != 5) return false;
+        if (word.length() != WORD_LENGTH) return false;
 
         for (int i = 0; i < word.length(); i++) {
             if (!Character.isLetter(word.charAt(i))) {
@@ -41,8 +43,8 @@ public class WordleDictionary {
     }
 
     public static String compare(String answer, String guess) {
-        char[] result = new char[5];
-        boolean[] used = new boolean[5];
+        char[] result = new char[WORD_LENGTH];
+        boolean[] used = new boolean[WORD_LENGTH];
 
 
         for (int i = 0; i < 5; i++) {
@@ -53,13 +55,13 @@ public class WordleDictionary {
         }
 
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WORD_LENGTH; i++) {
             if (result[i] == '+') continue;
 
             char c = guess.charAt(i);
             boolean found = false;
 
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < WORD_LENGTH; j++) {
                 if (!used[j] && answer.charAt(j) == c) {
                     used[j] = true;
                     found = true;
@@ -74,7 +76,7 @@ public class WordleDictionary {
 
     public static boolean matches(String candidate, String guess, String result) {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WORD_LENGTH; i++) {
             char g = guess.charAt(i);
             char r = result.charAt(i);
 

@@ -1,5 +1,8 @@
 package ru.yandex.practicum;
 
+import exceptions.GameException;
+import exceptions.InvalidWordFormatException;
+import exceptions.WordNotFoundInDictionaryException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

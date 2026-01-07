@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package exceptions;
 
 public class GameStateException extends RuntimeException {
     public GameStateException(String message) {

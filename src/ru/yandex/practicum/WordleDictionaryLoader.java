@@ -1,6 +1,9 @@
 package ru.yandex.practicum;
 
+import exceptions.GameStateException;
+
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,6 +19,12 @@ import java.util.List;
 public class WordleDictionaryLoader {
 
     public WordleDictionary load(Path path) throws IOException {
+        if (!Files.exists(path)) {
+            throw new FileNotFoundException(
+                    "Файл словаря не найден: " + path.toAbsolutePath()
+            );
+        }
+
         List<String> words = new ArrayList<>();
 
         try (BufferedReader br = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
@@ -28,6 +37,11 @@ public class WordleDictionaryLoader {
                 }
             }
         }
+
+        if (words.isEmpty()) {
+            throw new GameStateException("Словарь пуст");
+        }
+
         return new WordleDictionary(words);
     }
 }

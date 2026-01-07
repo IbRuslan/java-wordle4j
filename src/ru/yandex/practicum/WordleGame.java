@@ -1,5 +1,7 @@
 package ru.yandex.practicum;
 
+import exceptions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,8 +20,9 @@ import java.util.Random;
  */
 public class WordleGame {
 
-    private String answer;
+    public static final int MAX_STEPS = 6;
 
+    private String answer;
     private int steps;
 
     private final WordleDictionary dictionary;
@@ -32,12 +35,12 @@ public class WordleGame {
         this.dictionary = dictionary;
         this.answer = dictionary.getRandomWord();
         this.logger = logger;
-        this.steps = 6;
+        this.steps = MAX_STEPS;
 
         logger.log("Загадано слово (скрыто)");
     }
 
-    public String makeGuess(String guess) throws GameException {
+    public String makeGuess(String guess) {
         if (steps <= 0) {
             throw new GameAlreadyFinishedException();
         }
@@ -59,10 +62,9 @@ public class WordleGame {
         return result;
     }
 
-    private void validateWord(String word)
-            throws GameException {
+    private void validateWord(String word) {
 
-        if (word.length() != 5) {
+        if (word.length() != WordleDictionary.WORD_LENGTH) {
             throw new InvalidWordFormatException();
         }
 
@@ -77,7 +79,8 @@ public class WordleGame {
         }
     }
 
-    public String getHint() throws GameException {
+    public String getHint() {
+
         List<String> candidates = new ArrayList<>();
 
         for (String word : dictionary.getWords()) {
@@ -102,6 +105,8 @@ public class WordleGame {
             return "Подходящих слов нет";
         }
 
+        steps--;
+
         Random random = new Random();
         return candidates.get(random.nextInt(candidates.size()));
     }
@@ -120,6 +125,10 @@ public class WordleGame {
 
     void setAnswerForTest(String answer) {
         this.answer = answer;
+    }
+
+    int getSteps() {
+        return steps;
     }
 
 }

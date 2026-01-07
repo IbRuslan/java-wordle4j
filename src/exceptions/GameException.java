@@ -1,6 +1,6 @@
-package ru.yandex.practicum;
+package exceptions;
 
-public class GameException extends  Exception {
+public class GameException extends  RuntimeException  {
 
     public GameException(String message) {
         super(message);

@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package exceptions;
 
 public class WordNotFoundInDictionaryException extends GameException {
     public WordNotFoundInDictionaryException(String message) {
